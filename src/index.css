@@ -3,19 +3,21 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-@theme {
-  --color-brand-50: #eef4ff;
-  --color-brand-100: #e0eafe;
-  --color-brand-200: #c7d8fd;
-  --color-brand-300: #a4bdfb;
-  --color-brand-400: #8098f7;
-  --color-brand-500: #6172f0;
-  --color-brand-600: #4952e3;
-  --color-brand-700: #3d3fc8;
-  --color-brand-800: #3436a1;
-  --color-brand-900: #303280;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-coffee-50: #f5f0eb;
+  --color-coffee-100: #e8dcd0;
+  --color-coffee-200: #d3bda3;
+  --color-coffee-300: #b8996f;
+  --color-coffee-400: #9c7a4f;
+  --color-coffee-500: #7a5c3a;
+  --color-coffee-600: #5c4530;
+  --color-coffee-700: #453427;
+  --color-coffee-800: #33261e;
+  --color-coffee-900: #251b16;
+  --color-coffee-950: #16110d;
+}
 html,
 body,
 #root {

@@ -30,7 +30,7 @@ export function DashboardLayout() {
         width={SIDER_WIDTH}
         collapsedWidth={isMobile ? 0 : SIDER_WIDTH_COLLAPSED} // 👈 en móvil se oculta del todo
         breakpoint="md"
-        className="bg-gray-900"
+        className="bg-gray-900 dark:bg-gray-950"
         style={{
           height: "100vh",
           position: isMobile ? "fixed" : "sticky", // 👈 overlay en móvil, no empuja contenido
@@ -84,7 +84,7 @@ export function DashboardLayout() {
       </button>
 
       <Layout style={{ marginLeft: isMobile ? 0 : undefined }}>
-        <Content className="bg-gray-50 p-3 sm:p-6">
+        <Content className="bg-gray-50 p-3 sm:p-6 dark:bg-gray-900 dark:text-white">
           <Outlet />
         </Content>
       </Layout>

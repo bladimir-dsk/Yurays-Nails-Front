@@ -14,6 +14,8 @@ export const CategoryApi = {
 
   getById: (id) => api.get(`/category/${id}`).then((res) => res.data),
 
+  getAllName: () => api.get("/category/name").then((res) => res.data),
+
   create: (payload) => api.post("/category", payload).then((res) => res.data),
 
   update: (id, payload) =>

@@ -136,8 +136,14 @@ export default function CategoryPage() {
 
   return (
     <div className="space-y-6">
-      <Flex justify="space-between" align="center" wrap="wrap" gap="middle">
-        <div>
+      <Flex
+        justify="space-between"
+        align="center"
+        wrap="wrap"
+        gap="middle"
+        className="space-y-6"
+      >
+        <div className="space-y-6">
           <Title
             level={2}
             style={{

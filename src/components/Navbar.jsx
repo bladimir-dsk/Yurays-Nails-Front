@@ -4,13 +4,17 @@ import {
   SettingOutlined,
   TableOutlined,
   ScheduleOutlined,
+  BulbOutlined,
+  BulbFilled,
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Menu, Button } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useThemeMode } from "@/context/ThemeContext";
 
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isDark, toggleTheme } = useThemeMode();
 
   const items = [
     { key: "/dashboard", icon: <DashboardOutlined />, label: "Dashboard" },
@@ -38,14 +42,24 @@ export function Navbar() {
   ];
 
   return (
-    <Menu
-      mode="inline"
-      theme="dark"
-      selectedKeys={[location.pathname]}
-      items={items}
-      onClick={({ key }) => navigate(key)}
-      className="border-none bg-transparent"
-      style={{ background: "transparent" }}
-    />
+    <div>
+      <Menu
+        mode="inline"
+        theme="dark"
+        selectedKeys={[location.pathname]}
+        items={items}
+        onClick={({ key }) => navigate(key)}
+        className="border-none bg-transparent"
+        style={{ background: "transparent" }}
+      />
+      <div style={{ display: "flex", justifyContent: "flex-end", padding: 8 }}>
+        <Button
+          type="text"
+          icon={isDark ? <BulbFilled /> : <BulbOutlined />}
+          onClick={toggleTheme}
+          style={{ color: "#fff" }}
+        />
+      </div>
+    </div>
   );
 }
