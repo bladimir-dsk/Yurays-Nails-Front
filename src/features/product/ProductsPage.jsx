@@ -1,4 +1,5 @@
 import { ProductApi } from "@/api/endpoints/productApi";
+import ModalProductAdd from "@/components/modals/ModalProductAdd";
 import { useNotification } from "@/components/NotificationProvider";
 import ProductTable from "@/components/table/ProductTable";
 import ProductFilters from "@/components/table/ProductFilters";
@@ -22,6 +23,10 @@ export default function ProductsPage() {
     code: "",
     id_category: undefined,
   });
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [saving, setSaving] = useState(false);
 
   const loadProducts = useCallback(
     async (page, limit, currentFilters) => {
@@ -50,10 +55,8 @@ export default function ProductsPage() {
     [notify],
   );
 
-  // ⚠️ CLAVE: array de dependencias vacío, se ejecuta UNA sola vez al montar
   useEffect(() => {
     loadProducts(1, 10, { name: "", code: "", id_category: undefined });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlePageChange = (page, limit) => {
@@ -72,6 +75,54 @@ export default function ProductsPage() {
     loadProducts(1, pagination.limit, newFilters);
   };
 
+  const handleOpenCreate = () => {
+    setSelectedProduct(null);
+    setModalOpen(true);
+  };
+
+  const handleEdit = (product) => {
+    setSelectedProduct(product);
+    setModalOpen(true);
+  };
+
+  const handleDelete = async (product) => {
+    try {
+      await ProductApi.delete(product.id_product);
+      notify.success("Producto eliminado correctamente");
+
+      const isLastItemOnPage = products.length === 1 && pagination.page > 1;
+      const targetPage = isLastItemOnPage
+        ? pagination.page - 1
+        : pagination.page;
+
+      await loadProducts(targetPage, pagination.limit, filters);
+    } catch (error) {
+      notify.error("Error al eliminar el producto");
+    }
+  };
+
+  const handleSubmit = async (values) => {
+    try {
+      setSaving(true);
+      if (selectedProduct) {
+        await ProductApi.update(selectedProduct.id_product, values);
+        notify.success("Producto actualizado correctamente");
+      } else {
+        await ProductApi.create(values);
+        notify.success("Producto creado correctamente");
+      }
+      setModalOpen(false);
+      setSelectedProduct(null);
+      await loadProducts(pagination.page, pagination.limit, filters);
+      return true;
+    } catch (error) {
+      notify.error("Error al guardar el producto");
+      return false;
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div>
       <Flex justify="space-between" align="center" wrap="wrap" gap="middle">
@@ -81,7 +132,7 @@ export default function ProductsPage() {
           </Title>
           <Text type="secondary">Administra los productos de tu negocio</Text>
         </div>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={handleOpenCreate}>
           + Nuevo producto
         </Button>
       </Flex>
@@ -96,6 +147,19 @@ export default function ProductsPage() {
         total={pagination.total}
         onPageChange={handlePageChange}
         onSearch={handleSearchName}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+
+      <ModalProductAdd
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setSelectedProduct(null);
+        }}
+        onSubmit={handleSubmit}
+        loading={saving}
+        product={selectedProduct}
       />
     </div>
   );

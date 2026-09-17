@@ -1,5 +1,9 @@
-import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table } from "antd";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import { Button, Input, Popconfirm, Space, Table, Tooltip } from "antd";
 import React, { useRef } from "react";
 
 export default function ProductTable({
@@ -11,7 +15,7 @@ export default function ProductTable({
   onPageChange,
   onSearch,
   onEdit,
-  OnDelete,
+  onDelete,
 }) {
   const searchInputRef = useRef(null);
   const handleSearch = (value, confirm) => {
@@ -101,6 +105,38 @@ export default function ProductTable({
       dataIndex: "price",
       key: "price",
     },
+
+    {
+      title: "Acciones",
+      key: "actions",
+      width: 100,
+      fixed: "right",
+      align: "center",
+      render: (_, record) => (
+        <Space size="small">
+          <Tooltip title="Editar producto">
+            <Button
+              type="text"
+              icon={<EditOutlined />}
+              onClick={() => onEdit(record)}
+            />
+          </Tooltip>
+
+          <Popconfirm
+            title="Eliminar producto"
+            description={`¿Seguro que deseas eliminar "${record.name}"?`}
+            okText="Sí, eliminar"
+            cancelText="Cancelar"
+            okButtonProps={{ danger: true }}
+            onConfirm={() => onDelete?.(record)}
+          >
+            <Tooltip title="Eliminar producto">
+              <Button type="text" danger icon={<DeleteOutlined />} />
+            </Tooltip>
+          </Popconfirm>
+        </Space>
+      ),
+    },
   ];
 
   return (
@@ -110,6 +146,12 @@ export default function ProductTable({
         dataSource={dataSource}
         loading={loading}
         rowKey="id_product"
+        options={{
+          reload: false,
+          density: false,
+          setting: false,
+          fullScreen: false,
+        }}
         pagination={{
           current: currentPage,
           pageSize,
