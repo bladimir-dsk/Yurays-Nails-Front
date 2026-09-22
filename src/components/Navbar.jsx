@@ -24,8 +24,8 @@ export function Navbar() {
       icon: <ScheduleOutlined />,
       label: "Ventas",
       children: [
-        { key: "/acces", label: "Lista de ingresos" },
-        { key: "/add-access", label: "Agregar ingreso" },
+        { key: "/new-sale", label: "Nueva venta" },
+        { key: "/sale-history", label: "Historial de ventas" },
       ],
     },
     {

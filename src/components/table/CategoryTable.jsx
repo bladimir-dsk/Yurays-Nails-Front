@@ -1,5 +1,5 @@
 import { ProTable } from "@ant-design/pro-components";
-import { Button, Input, Popconfirm, Space, Tooltip } from "antd";
+import { Button, Input, Popconfirm, Space, Table, Tooltip } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -123,7 +123,7 @@ export default function CategoryTable({
 
   return (
     <div className="category-table-wrapper">
-      <ProTable
+      <Table
         columns={columns}
         dataSource={dataSource}
         loading={loading}

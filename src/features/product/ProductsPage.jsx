@@ -97,7 +97,7 @@ export default function ProductsPage() {
 
       await loadProducts(targetPage, pagination.limit, filters);
     } catch (error) {
-      notify.error("Error al eliminar el producto");
+      notify.error(error.message);
     }
   };
 
@@ -116,7 +116,7 @@ export default function ProductsPage() {
       await loadProducts(pagination.page, pagination.limit, filters);
       return true;
     } catch (error) {
-      notify.error("Error al guardar el producto");
+      notify.error(error.message);
       return false;
     } finally {
       setSaving(false);

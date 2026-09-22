@@ -16,6 +16,9 @@ export const ProductApi = {
 
   getById: (id) => api.get(`/product/${id}`).then((res) => res.data),
 
+  getByCode: (code) =>
+    api.get(`/product/by-code/${code}`).then((res) => res.data),
+
   create: (payload) => api.post("/product", payload).then((res) => res.data),
 
   update: (id, payload) =>
