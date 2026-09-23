@@ -5,6 +5,30 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+.coffee-menu.ant-menu-dark {
+  background: transparent !important;
+}
+
+.coffee-menu.ant-menu-dark .ant-menu-item,
+.coffee-menu.ant-menu-dark .ant-menu-submenu-title {
+  color: var(--color-coffee-100);
+}
+
+.coffee-menu.ant-menu-dark .ant-menu-item:hover,
+.coffee-menu.ant-menu-dark .ant-menu-submenu-title:hover {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.coffee-menu.ant-menu-dark .ant-menu-item-selected {
+  background-color: var(--color-coffee-300) !important;
+  color: var(--color-coffee-900) !important;
+}
+
+.coffee-menu.ant-menu-dark .ant-menu-sub.ant-menu-inline {
+  background: rgba(0, 0, 0, 0.12) !important;
+}
+
 @theme {
   --color-coffee-50: #f5f0eb;
   --color-coffee-100: #e8dcd0;

@@ -66,6 +66,10 @@ export default function SaleDetailModal({ open, onClose, sale, loading }) {
               icon={<PrinterOutlined />}
               loading={printing}
               onClick={handlePrint}
+              style={{
+                backgroundColor: "var(--color-coffee-400)",
+                borderColor: "var(--color-coffee-400)",
+              }}
             >
               Imprimir ticket
             </Button>

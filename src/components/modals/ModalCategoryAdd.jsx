@@ -61,7 +61,15 @@ export default function ModalCategoryAdd({
         <div className="flex justify-end gap-2">
           <Button onClick={handleCancel}>Cancelar</Button>
 
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            style={{
+              backgroundColor: "var(--color-coffee-400)",
+              borderColor: "var(--color-coffee-400)",
+            }}
+          >
             {isEditing ? "Guardar cambios" : "Registrar categoría"}
           </Button>
         </div>

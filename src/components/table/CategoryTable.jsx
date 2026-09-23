@@ -1,4 +1,3 @@
-import { ProTable } from "@ant-design/pro-components";
 import { Button, Input, Popconfirm, Space, Table, Tooltip } from "antd";
 import {
   EditOutlined,
@@ -38,6 +37,7 @@ export default function CategoryTable({
       key: "name",
       width: 260,
       fixed: "left",
+
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -53,8 +53,13 @@ export default function CategoryTable({
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
             onPressEnter={() => handleSearch(selectedKeys[0], confirm)}
-            style={{ marginBottom: 8, display: "block", width: 200 }}
+            style={{
+              marginBottom: 8,
+              display: "block",
+              width: 200,
+            }}
           />
+
           <Space>
             <Button
               type="primary"
@@ -65,6 +70,7 @@ export default function CategoryTable({
             >
               Buscar
             </Button>
+
             <Button
               size="small"
               onClick={() => handleReset(clearFilters, confirm)}
@@ -75,25 +81,35 @@ export default function CategoryTable({
           </Space>
         </div>
       ),
+
       filterIcon: (filtered) => (
-        <SearchOutlined style={{ color: filtered ? "#4f46e5" : undefined }} />
+        <SearchOutlined
+          style={{
+            color: filtered ? "var(--ant-color-primary)" : undefined,
+          }}
+        />
       ),
+
       onFilter: () => true,
+
       filterDropdownProps: {
         onOpenChange: (open) => {
-          if (open) setTimeout(() => searchInputRef.current?.focus(), 100);
+          if (open) {
+            setTimeout(() => searchInputRef.current?.focus(), 100);
+          }
         },
       },
-      render: (name) => (
-        <span className="font-medium text-gray-800">{name}</span>
-      ),
+
+      render: (name) => <span className="font-medium">{name}</span>,
     },
+
     {
       title: "Acciones",
       key: "actions",
       width: 100,
       fixed: "right",
       align: "center",
+
       render: (_, record) => (
         <Space size="small">
           <Tooltip title="Editar categoría">
@@ -122,20 +138,12 @@ export default function CategoryTable({
   ];
 
   return (
-    <div className="category-table-wrapper">
+    <div>
       <Table
         columns={columns}
         dataSource={dataSource}
         loading={loading}
         rowKey="id_category"
-        search={false}
-        toolBarRender={false}
-        options={{
-          reload: false,
-          density: false,
-          setting: false,
-          fullScreen: false,
-        }}
         pagination={{
           current: currentPage,
           pageSize,
@@ -149,9 +157,7 @@ export default function CategoryTable({
           onPageChange(pagination.current, pagination.pageSize);
         }}
         scroll={{ x: 500 }}
-        variant="outlined"
-        cardBordered={false}
-        dateFormatter="string"
+        bordered={false}
       />
     </div>
   );

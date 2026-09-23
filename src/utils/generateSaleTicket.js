@@ -7,7 +7,7 @@ const STORE_INFO = {
   phone: "Tel: 997 124 2390",
   // Opción A (carpeta public): "/logo.png"
   // Opción B (src/assets):     usa el import y pásalo aquí (ver ejemplo abajo)
-  logoUrl: "/logo.png", // <-- ajusta esta ruta según donde pongas el archivo
+  logoUrl: "/YNS.png", // <-- ajusta esta ruta según donde pongas el archivo
 };
 
 const PAGE_WIDTH_MM = 100;

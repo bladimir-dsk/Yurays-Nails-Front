@@ -341,6 +341,10 @@ export default function NewSalePage() {
           </Title>
           <Button
             type="primary"
+            style={{
+              backgroundColor: "var(--color-coffee-400)",
+              borderColor: "var(--color-coffee-400)",
+            }}
             size="large"
             disabled={cart.length === 0}
             onClick={handleOpenPaymentModal}
@@ -360,6 +364,10 @@ export default function NewSalePage() {
           </Button>,
           <Button
             key="confirm"
+            style={{
+              backgroundColor: "var(--color-coffee-400)",
+              borderColor: "var(--color-coffee-400)",
+            }}
             type="primary"
             loading={savingSale}
             disabled={

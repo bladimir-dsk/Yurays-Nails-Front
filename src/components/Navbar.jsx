@@ -1,64 +1,95 @@
 import {
   DashboardOutlined,
-  UserOutlined,
-  SettingOutlined,
   TableOutlined,
   ScheduleOutlined,
   BulbOutlined,
   BulbFilled,
+  LogoutOutlined,
 } from "@ant-design/icons";
-import { Menu, Button } from "antd";
+
+import {
+  ChartColumnBig,
+  Grid2X2Check,
+  PackagePlus,
+  PlusCircle,
+  ShoppingCartPlus,
+  Wallet,
+} from "lucide-react";
+import { Menu, Button, Popconfirm } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeMode } from "@/context/ThemeContext";
 
-export function Navbar() {
+export function Navbar({ onNavigate }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { isDark, toggleTheme } = useThemeMode();
 
   const items = [
-    { key: "/dashboard", icon: <DashboardOutlined />, label: "Dashboard" },
-    { key: "/category", icon: <TableOutlined />, label: "Categorías" },
-    { key: "/product", icon: <UserOutlined />, label: "Productos" },
+    { key: "/dashboard", icon: <ChartColumnBig />, label: "Dashboard" },
+    { key: "/category", icon: <Grid2X2Check />, label: "Categorías" },
+    { key: "/product", icon: <PackagePlus />, label: "Productos" },
     {
-      icon: <ScheduleOutlined />,
+      icon: <ShoppingCartPlus />,
       label: "Ventas",
       children: [
-        { key: "/new-sale", label: "Nueva venta" },
-        { key: "/sale-history", label: "Historial de ventas" },
-      ],
-    },
-    {
-      key: "/settings",
-      icon: <SettingOutlined />,
-      label: "Configuración",
-      children: [
-        { key: "/profile", label: "Perfil" },
-        { key: "10", label: "Option 10" },
-        { key: "11", label: "Option 11" },
-        { key: "12", label: "Option 12" },
+        {
+          key: "/new-sale",
+          label: "Nueva venta",
+          icon: <PlusCircle size={15} />,
+        },
+        {
+          key: "/sale-history",
+          label: "Historial de ventas",
+          icon: <Wallet size={15} />,
+        },
       ],
     },
   ];
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
-    <div>
-      <Menu
-        mode="inline"
-        theme="dark"
-        selectedKeys={[location.pathname]}
-        items={items}
-        onClick={({ key }) => navigate(key)}
-        className="border-none bg-transparent"
-        style={{ background: "transparent" }}
-      />
-      <div style={{ display: "flex", justifyContent: "flex-end", padding: 8 }}>
+    <div className="flex h-full flex-col">
+      <div className="flex-1 overflow-y-auto">
+        <Menu
+          mode="inline"
+          theme="dark"
+          selectedKeys={[location.pathname]}
+          items={items}
+          onClick={({ key }) => {
+            navigate(key);
+            onNavigate?.();
+          }}
+          className="coffee-menu border-none bg-transparent"
+          style={{ background: "transparent" }}
+        />
+      </div>
+
+      <div className="flex shrink-0 items-center justify-between border-t border-coffee-200/20 px-3 py-3">
         <Button
           type="text"
           icon={isDark ? <BulbFilled /> : <BulbOutlined />}
           onClick={toggleTheme}
-          style={{ color: "#fff" }}
+          style={{ color: "var(--color-coffee-100)" }}
         />
+
+        <Popconfirm
+          title="¿Cerrar sesión?"
+          okText="Sí"
+          cancelText="Cancelar"
+          onConfirm={handleLogout}
+        >
+          <Button
+            type="text"
+            icon={<LogoutOutlined />}
+            style={{ color: "var(--color-coffee-100)" }}
+          >
+            Salir
+          </Button>
+        </Popconfirm>
       </div>
     </div>
   );

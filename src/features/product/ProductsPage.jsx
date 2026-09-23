@@ -132,7 +132,15 @@ export default function ProductsPage() {
           </Title>
           <Text type="secondary">Administra los productos de tu negocio</Text>
         </div>
-        <Button type="primary" size="large" onClick={handleOpenCreate}>
+        <Button
+          style={{
+            backgroundColor: "var(--color-coffee-400)",
+            borderColor: "var(--color-coffee-400)",
+          }}
+          type="primary"
+          size="large"
+          onClick={handleOpenCreate}
+        >
           + Nuevo producto
         </Button>
       </Flex>

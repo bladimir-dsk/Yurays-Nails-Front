@@ -159,7 +159,15 @@ export default function CategoryPage() {
           </Text>
         </div>
 
-        <Button type="primary" size="large" onClick={handleOpenCreate}>
+        <Button
+          style={{
+            backgroundColor: "var(--color-coffee-400)",
+            borderColor: "var(--color-coffee-400)",
+          }}
+          type="primary"
+          size="large"
+          onClick={handleOpenCreate}
+        >
           + Nueva categoría
         </Button>
       </Flex>

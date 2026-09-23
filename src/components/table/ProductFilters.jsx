@@ -64,7 +64,15 @@ export default function ProductFilters({ onFilter }) {
         style={{ width: 220 }}
       />
 
-      <Button type="primary" icon={<SearchOutlined />} onClick={handleSearch}>
+      <Button
+        style={{
+          backgroundColor: "var(--color-coffee-400)",
+          borderColor: "var(--color-coffee-400)",
+        }}
+        type="primary"
+        icon={<SearchOutlined />}
+        onClick={handleSearch}
+      >
         Buscar
       </Button>
       <Button icon={<ClearOutlined />} onClick={handleClear}>
