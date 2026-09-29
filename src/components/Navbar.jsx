@@ -68,7 +68,7 @@ export function Navbar({ onNavigate }) {
         />
       </div>
 
-      <div className="flex shrink-0 items-center justify-between border-t border-coffee-200/20 px-3 py-3">
+      <div className="flex shrink-0 items-center justify-between border-t border-coffee-200/20 px-3 py-3 mt-10">
         <Button
           type="text"
           icon={isDark ? <BulbFilled /> : <BulbOutlined />}
@@ -86,9 +86,7 @@ export function Navbar({ onNavigate }) {
             type="text"
             icon={<LogoutOutlined />}
             style={{ color: "var(--color-coffee-100)" }}
-          >
-            Salir
-          </Button>
+          ></Button>
         </Popconfirm>
       </div>
     </div>

@@ -17,4 +17,20 @@ export const SaleApi = {
   create: (payload) => api.post("/sale", payload).then((res) => res.data),
 
   delete: (id) => api.delete(`/sale/${id}`).then((res) => res.data),
+
+  // Dashboard: ventas y dinero por día
+  getDailyStats: ({ from, to } = {}) =>
+    api
+      .get("/sale/stats/daily", {
+        params: { from: from || undefined, to: to || undefined },
+      })
+      .then((res) => res.data),
+
+  // Dashboard: cada venta de la semana (lunes a domingo)
+  getWeeklyStats: ({ date } = {}) =>
+    api
+      .get("/sale/stats/weekly", {
+        params: { date: date || undefined },
+      })
+      .then((res) => res.data),
 };
