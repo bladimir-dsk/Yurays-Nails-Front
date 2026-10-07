@@ -1,12 +1,12 @@
-import { Button, Input, Popconfirm, Space, Table, Tooltip } from "antd";
 import {
-  EditOutlined,
   DeleteOutlined,
+  EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { Button, Input, Popconfirm, Space, Table, Tooltip } from "antd";
 import React, { useRef } from "react";
 
-export default function CategoryTable({
+export default function ProductTable({
   dataSource = [],
   loading = false,
   total = 0,
@@ -18,7 +18,6 @@ export default function CategoryTable({
   onDelete,
 }) {
   const searchInputRef = useRef(null);
-
   const handleSearch = (value, confirm) => {
     onSearch?.(value || "");
     confirm();
@@ -32,12 +31,19 @@ export default function CategoryTable({
 
   const columns = [
     {
+      title: "Codigo",
+      dataIndex: "code",
+      key: "code",
+    },
+    {
+      title: "Categoria",
+      dataIndex: ["category", "name"],
+      key: "category.name",
+    },
+    {
       title: "Nombre",
       dataIndex: "name",
       key: "name",
-      width: 260,
-      fixed: "left",
-
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -53,27 +59,22 @@ export default function CategoryTable({
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
             onPressEnter={() => handleSearch(selectedKeys[0], confirm)}
-            style={{
-              marginBottom: 8,
-              display: "block",
-              width: 200,
-            }}
+            style={{ marginBottom: 8, display: "block", width: 200 }}
           />
-
           <Space>
             <Button
               type="primary"
               size="small"
-              icon={<SearchOutlined />}
               onClick={() => handleSearch(selectedKeys[0], confirm)}
               style={{ width: 90 }}
             >
               Buscar
             </Button>
-
             <Button
               size="small"
-              onClick={() => handleReset(clearFilters, confirm)}
+              onClick={() => {
+                handleReset(clearFilters, confirm);
+              }}
               style={{ width: 90 }}
             >
               Limpiar
@@ -81,26 +82,28 @@ export default function CategoryTable({
           </Space>
         </div>
       ),
-
       filterIcon: (filtered) => (
-        <SearchOutlined
-          style={{
-            color: filtered ? "var(--ant-color-primary)" : undefined,
-          }}
-        />
+        <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
       ),
-
-      onFilter: () => true,
-
-      filterDropdownProps: {
-        onOpenChange: (open) => {
-          if (open) {
-            setTimeout(() => searchInputRef.current?.focus(), 100);
-          }
-        },
+      onFilter: (value, record) =>
+        record.name
+          ? record.name.toString().toLowerCase().includes(value.toLowerCase())
+          : "",
+      onFilterDropdownOpenChange: (visible) => {
+        if (visible) {
+          setTimeout(() => searchInputRef.current?.select(), 100);
+        }
       },
-
-      render: (name) => <span className="font-medium">{name}</span>,
+    },
+    {
+      title: "Stock",
+      dataIndex: "stock",
+      key: "stock",
+    },
+    {
+      title: "Precio",
+      dataIndex: "price",
+      key: "price",
     },
 
     {
@@ -109,10 +112,9 @@ export default function CategoryTable({
       width: 100,
       fixed: "right",
       align: "center",
-
       render: (_, record) => (
         <Space size="small">
-          <Tooltip title="Editar categoría">
+          <Tooltip title="Editar producto">
             <Button
               type="text"
               icon={<EditOutlined />}
@@ -121,14 +123,14 @@ export default function CategoryTable({
           </Tooltip>
 
           <Popconfirm
-            title="Eliminar categoría"
+            title="Eliminar producto"
             description={`¿Seguro que deseas eliminar "${record.name}"?`}
             okText="Sí, eliminar"
             cancelText="Cancelar"
             okButtonProps={{ danger: true }}
             onConfirm={() => onDelete?.(record)}
           >
-            <Tooltip title="Eliminar categoría">
+            <Tooltip title="Eliminar producto">
               <Button type="text" danger icon={<DeleteOutlined />} />
             </Tooltip>
           </Popconfirm>
@@ -143,21 +145,29 @@ export default function CategoryTable({
         columns={columns}
         dataSource={dataSource}
         loading={loading}
-        rowKey="id_category"
+        rowKey="id_product"
+        options={{
+          reload: false,
+          density: false,
+          setting: false,
+          fullScreen: false,
+        }}
         pagination={{
           current: currentPage,
           pageSize,
           total,
           showSizeChanger: true,
           pageSizeOptions: [10, 20, 50, 100],
-          showTotal: (total) => `Total ${total} categorías`,
+          showTotal: (total) => `Total ${total} productos`,
           responsive: true,
         }}
         onChange={(pagination) => {
           onPageChange(pagination.current, pagination.pageSize);
         }}
         scroll={{ x: 500 }}
-        bordered={false}
+        variant="outlined"
+        cardBordered={false}
+        dateFormatter="string"
       />
     </div>
   );
