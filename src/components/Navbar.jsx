@@ -1,13 +1,7 @@
-import {
-  DashboardOutlined,
-  TableOutlined,
-  ScheduleOutlined,
-  BulbOutlined,
-  BulbFilled,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { BulbOutlined, BulbFilled, LogoutOutlined } from "@ant-design/icons";
 
 import {
+  BanknoteCheck,
   ChartColumnBig,
   Grid2X2Check,
   PackagePlus,
@@ -26,6 +20,7 @@ export function Navbar({ onNavigate }) {
 
   const items = [
     { key: "/dashboard", icon: <ChartColumnBig />, label: "Dashboard" },
+    { key: "/box", icon: <BanknoteCheck />, label: "Caja" },
     { key: "/category", icon: <Grid2X2Check />, label: "Categorías" },
     { key: "/product", icon: <PackagePlus />, label: "Productos" },
     {

@@ -9,6 +9,7 @@ import CategoryPage from "@/features/category/CategoryPage";
 import ProductsPage from "@/features/product/ProductsPage";
 import NewSalePage from "@/features/sale/NewSalePage";
 import HistorySalePage from "@/features/sale/HistorySalePage";
+import BoxPage from "@/features/box/BoxPage";
 
 export function AppRouter() {
   return (
@@ -31,6 +32,7 @@ export function AppRouter() {
           <Route path="/product" element={<ProductsPage />} />
           <Route path="/new-sale" element={<NewSalePage />} />
           <Route path="/sale-history" element={<HistorySalePage />} />
+          <Route path="/box" element={<BoxPage />} />
 
           {/* Aquí irán los demás módulos */}
         </Route>
