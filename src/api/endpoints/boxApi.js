@@ -15,6 +15,8 @@ export const BoxApi = {
 
   getAllToday: () => api.get("/caja/hoy").then((res) => res.data),
 
+  getByDate: (date) => api.get(`/caja/fecha/${date}`).then((res) => res.data),
+
   create: (payload) => api.post("/caja", payload).then((res) => res.data),
 
   createMovement: (payload) =>

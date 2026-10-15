@@ -3,6 +3,7 @@ import { BulbOutlined, BulbFilled, LogoutOutlined } from "@ant-design/icons";
 import {
   BanknoteCheck,
   ChartColumnBig,
+  FileText,
   Grid2X2Check,
   PackagePlus,
   PlusCircle,
@@ -39,6 +40,7 @@ export function Navbar({ onNavigate }) {
         },
       ],
     },
+    { key: "/report", icon: <FileText />, label: "Reportes" },
   ];
 
   const handleLogout = () => {

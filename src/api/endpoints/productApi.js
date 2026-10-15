@@ -14,6 +14,8 @@ export const ProductApi = {
       })
       .then((res) => res.data),
 
+  getReport: () => api.get("/product/by-category").then((res) => res.data),
+
   getById: (id) => api.get(`/product/${id}`).then((res) => res.data),
 
   getByCode: (code) =>
