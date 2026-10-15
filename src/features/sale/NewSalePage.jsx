@@ -235,7 +235,7 @@ export default function NewSalePage() {
       setPaymentModalOpen(false);
       setAmountPaid(null);
     } catch (error) {
-      notify.error("Error al guardar la venta", getErrorMessage(error));
+      notify.error("Error al guardar la venta", error.message);
     } finally {
       setSavingSale(false);
       focusScanner();
